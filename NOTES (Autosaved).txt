@@ -49,4 +49,5 @@ git push origin master
 CC1101 Transciever (arduino?)
 10 dBm == 10*1mW, booster to ~20 dBm
 200 kbps standard, needs bandwidth optimally equal to data rate
-wider spectrum - more noise
+wider spectrum - more noise, none of your signal
+narrow spectrum - less noise, not enough of your signal
