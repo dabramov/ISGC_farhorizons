@@ -1,0 +1,238 @@
+<html>
+
+<head>
+  <title>Far Horizons BalloonTracker</title>
+    <link rel="stylesheet" href="style.css" type="text/css">
+    <link rel="stylesheet" type="text/css" href="cb_style2.css">
+
+    <!-- Load up the JavaScript Libraries we will need -->
+<!--    <script src="./firebug.js"></script> -->
+    <script src="OpenLayersDev.js"></script>
+    <script src="jquery.js"></script>
+    <script src="highcharts.js" type="text/javascript"></script>
+    <script src="testChart.js" type="text/javascript"></script>
+    <script src="jquery.cookies.2.2.0.js" type="text/javascript"></script>
+    <script src="trackerFunctions2.js"></script>
+
+    <script type="text/javascript" src="ajax.js"></script>
+    <script type="text/javascript" src="chatbox2.js"></script>
+
+
+    </head>
+
+    <body onload="initialChatLogStatus()">
+<table width="100%" Border = "0" cellpadding="0" cellspacing="0">
+<tr>
+    <!-- Now set up a table for the map and the plots to live in -->
+     <td> <div id="BalloonStats"> </div></td>
+    <!-- add in a toggle button for displaying balloon history -->
+<td>      <input id="current-toggle" type="checkbox">
+      <label for="current-toggle">Show Only Current Positions?</label> </td>
+    <!-- add in a toggle button for displaying predicted landing positions -->
+<td>      <input id="predict-toggle" type="checkbox">
+      <label for="predict-toggle">Show Predicted Landing Positions?</label> </td>
+    <!-- add in a button for starting a fake track -->
+<td>        <form id="startFake" onsubmit="startFake();return false">
+    <input id="fakeButton" name="startfake" type="submit" value="Start Fake Track">
+</form>
+
+</tr>
+</table>
+      <table width="100%" border="0" cellpadding="0" cellspacing="0">
+	<tr>
+        <!-- set up the map pane -->
+	  <td width="800px">
+	    <div style="width:800px; height:500px" id="map"></div></td>
+	  <td>
+	    <table width="275px" border="0" cellpadding="0" cellspacing="0">
+	      <tr>
+		<td align="left"><div id="chart-container-1" style="width:275px; height:250px"></div>
+		</td>
+	      </tr>
+	      <tr>
+		<td align="left"><div id="chart-container-2" style="width:275px; height:250px"></div>
+		</td>
+	      </tr>
+	    </table>
+	  </td>
+	</tr>
+      </table>
+
+<!-- This area is shown only if the user needs to log in -->
+<div id="logInArea">
+  <form id="logInForm" onsubmit="logInProc();return false">
+    User Name:
+    <input id="userName" type="text">
+    <input id="logInButton" name="logIn" type="submit" value="Log In">
+  </form>
+</div>
+
+<!-- this area is shown only once logged in -->
+<div id="chatArea">
+  <div id="oldMessages"></div>
+  <form onsubmit="sendMessage();return false" id="messageForm">
+    <input id="message" type="text">
+  </form>
+<form onsubmit="logOutProc(); return false">
+<input id="logOutButton" name="logOut" type="submit" value="Log Out">
+</form>
+</div>
+<span id="response_msg">Response text here</span>
+      <script defer="defer" type="text/javascript">
+
+
+window.onbeforeunload=windowClose;	
+<!-- do some preliminary set up -->
+
+	<!-- this is for the point/packet pop-ups on the maps -->
+        AutoSizeFramedCloud = OpenLayers.Class(OpenLayers.Popup.FramedCloud, {
+        'autoSize': true});
+        
+	<!-- this is the default set of options used in many calls -->
+	var options = {
+	projection: "EPSG:900913",
+        units: 'm',
+        numZoomLevels: 16,
+        maxResolution: 156543.0339,
+        maxExtent: new OpenLayers.Bounds(-20037508.34, -20037508.34,
+        20037508.34, 20037508.34)
+	};
+
+	<!-- and create a projection, size, pixel offset and icons for -->
+	<!-- plotting  -->
+	var proj = new OpenLayers.Projection("EPSG:4326");
+        var size = new OpenLayers.Size(8,8);
+        var offset = new OpenLayers.Pixel(-4, -4);
+        var size2 = new OpenLayers.Size(12,12);
+        var offset2 = new OpenLayers.Pixel(-6, -6);
+        var iconred = new OpenLayers.Icon('img/markerSmallred.png',size,offset);
+        var iconblue = new OpenLayers.Icon('img/markerSmallblue.png',size,offset);
+        var icongreen = new OpenLayers.Icon('img/markerSmallgreen.png',size,offset);
+        var iconpurple = new OpenLayers.Icon('img/markerSmallpurple.png',size,offset);
+        var iconlandingblue = new OpenLayers.Icon('img/markerLandingblue.png',size2,offset2);
+        var iconlandinggreen = new OpenLayers.Icon('img/markerLandinggreen.png',size2,offset2);
+        var iconlandingpurple = new OpenLayers.Icon('img/markerLandingpurple.png',size2,offset2);
+ 
+<!-- end of set up, now start the main work -->
+
+	<!-- start up a map -->	
+	var map = new OpenLayers.Map("map", options);
+	
+<!--
+-->
+
+	<!-- and create a couple of layers for the map display -->
+	var streets = new OpenLayers.Layer.TMS("Streets","maps/",
+                     { 'type':'png', 'getURL':get_my_url } );
+	var aerial = new OpenLayers.Layer.TMS("Aerial","maps/aerial/",
+                     { 'type':'png', 'getURL':get_my_url } );
+
+
+	<!-- add these layers to the map -->
+        map.addLayer(streets);
+        map.addLayer(aerial);
+
+	<!-- once we have a layer we can set the initial center, add a switcher and a scale -->
+	var cpoint = new OpenLayers.LonLat(-87.8, 41.1);
+	map.setCenter(cpoint.transform(proj, map.getProjectionObject()),11);
+	var LaySwitch=(new OpenLayers.Control.LayerSwitcher());
+
+	map.addControl(LaySwitch);
+	map.addControl(new OpenLayers.Control.ScaleLine({geodesic: true,maxWidth:200}));
+
+
+	<!-- now create marker layers for the three trackers -->
+	var kc9lhw_markerLayer = new OpenLayers.Layer.Markers("KC9LHW",{projection: proj});
+	var kc9lig_markerLayer = new OpenLayers.Layer.Markers("KC9LIG",{projection: proj}); 
+        var wb9sky_markerLayer = new OpenLayers.Layer.Markers("WB9SKY",{projection: proj});
+
+	var landingLayer = new OpenLayers.Layer.Markers("LANDING",{projection: proj});
+	
+	kc9lhw_markerLayer.id="kc9lhw";
+	kc9lig_markerLayer.id="kc9lig";
+	wb9sky_markerLayer.id="wb9sky";
+
+	<!-- and add then to the map -->
+        map.addLayer(kc9lhw_markerLayer);
+        map.addLayer(kc9lig_markerLayer);
+        map.addLayer(wb9sky_markerLayer);
+
+        map.addLayer(landingLayer);
+
+	var onlyCurrent=false;
+
+	<!-- set up so that the "current point only" click box automatically runs the -->
+	<!-- routine "setCurrent" -->
+	document.getElementById("current-toggle").onclick = setCurrent;
+	document.getElementById("predict-toggle").onclick = setPredict;
+
+
+	var wind_table = {x:[0,1,2],y:[0,1,2],w:[0,1,2]};
+
+	readWinds();
+
+
+<!-- set up the track objects -->
+
+	var kc9ligTrack = {name:"kc9ligTrack",layer:kc9lig_markerLayer,update:do_trackUpdate,
+	                   plot:plot_track2,parse_trackfile:parse_trackfile,
+	                   update_graph:update_graph,track:[],series:0,e_land:estimate_landing};
+	var kc9lhwTrack = {name:"kc9lhwTrack",layer:kc9lhw_markerLayer,update:do_trackUpdate,
+                           plot:plot_track2,parse_trackfile:parse_trackfile,
+	                   update_graph:update_graph,track:[],series:1,e_land:estimate_landing};
+	var wb9skyTrack = {name:"wb9skyTrack",layer:wb9sky_markerLayer,update:do_trackUpdate,
+	                   plot:plot_track2,parse_trackfile:parse_trackfile,
+                           update_graph:update_graph,track:[],series:2,e_land:estimate_landing};
+
+kc9ligTrack.landing=new OpenLayers.Marker((new OpenLayers.LonLat(0,0)).transform(proj, map.getProjectionObject()),iconlandingpurple.clone());
+kc9lhwTrack.landing=new OpenLayers.Marker((new OpenLayers.LonLat(0,0)).transform(proj, map.getProjectionObject()),iconlandinggreen.clone());
+wb9skyTrack.landing=new OpenLayers.Marker((new OpenLayers.LonLat(0,0)).transform(proj, map.getProjectionObject()),iconlandingblue.clone());
+
+kc9ligTrack.landing.display(false);
+kc9lhwTrack.landing.display(false);
+wb9skyTrack.landing.display(false);
+
+landingLayer.addMarker(kc9ligTrack.landing);
+landingLayer.addMarker(kc9lhwTrack.landing);
+landingLayer.addMarker(wb9skyTrack.landing);
+<!-- update once and then set on a 5 sec cycle -->
+
+	kc9lhwTrack.update();
+	kc9ligTrack.update();
+        wb9skyTrack.update();
+
+	setInterval("kc9ligTrack.update()",5000); 
+	setInterval("kc9lhwTrack.update()",5000); 
+ 	setInterval("wb9skyTrack.update()",5000); 
+
+      </script>
+
+</body>
+</html>
+
+<!--    
+Still to do:
+
+Interface work.
+  Balloon Dynamics should include van to balloon distance and bearing
+  chat sign in and layout improved
+  look and feel improved
+
+Van location data and marker
+
+better handling of the creation of map markers. Probably better to recreate each marker each time. May be slower but makes it stateless which is much easier.
+
+Better Landing estimates
+  Better handling of wind data
+
+More generally, need to test out hardware/serial routines, work out wireless web serving and van gps aquisition
+
+
+need to write Processing code to:
+  1) select serial port
+  2) select callsigns for tracking
+  3) clear up chat files
+  4) pull wind data
+  5) listen to serial port for call sign APRS packets and parse them for callsign.txt files
+
+-->

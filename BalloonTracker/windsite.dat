@@ -1,0 +1,122 @@
+<html><head><title>Op40 Sounding for IKK</title>
+</head><body bgcolor=white><center>
+<!-- 
+<table cellpadding=5 width=700>
+<tr>
+<td bgcolor="#ccffcc"><strong>1 Jan 2004</strong> - new version:  
+ Receives model data from grib 20km files instead of netCDF 40 km
+  files, so the grid location matches your input better.  Also longer
+  forecast projections are available.
+</td></tr></table> -->
+<img src="tmp/skewt.25641.gif" width=700 height=550><br>
+Sounding from the 
+<a href="http://ruc.noaa.gov/" target="25641">Op40</a>
+ analysis<br> 
+data is for nearest Op40 grid point,
+12.8 nm / 221 deg from    
+ IKK<br>
+Sounding for: 
+<a href="http://rucsoundings.noaa.gov/gifs/reply-skewt.cgi?data_source=Op40&year=12&month_name=Sep&mday=29&hour=22&lon=-104.67&lat=39.87&airport=IKK&add_hours=-3">-3 h</a> |
+<a href="http://rucsoundings.noaa.gov/gifs/reply-skewt.cgi?data_source=Op40&year=12&month_name=Sep&mday=29&hour=22&lon=-104.67&lat=39.87&airport=IKK&add_hours=-2">-2 h</a> |
+<a href="http://rucsoundings.noaa.gov/gifs/reply-skewt.cgi?data_source=Op40&year=12&month_name=Sep&mday=29&hour=22&lon=-104.67&lat=39.87&airport=IKK&add_hours=-1">previous hour</a> | 
+<a href="http://rucsoundings.noaa.gov/gifs/reply-skewt.cgi?data_source=Op40&year=12&month_name=Sep&mday=29&hour=22&lon=-104.67&lat=39.87&airport=IKK&add_hours=1">next hour</a> |
+<a href="http://rucsoundings.noaa.gov/gifs/reply-skewt.cgi?data_source=Op40&year=12&month_name=Sep&mday=29&hour=22&lon=-104.67&lat=39.87&airport=IKK&add_hours=2">+2 h</a> |
+<a href="http://rucsoundings.noaa.gov/gifs/reply-skewt.cgi?data_source=Op40&year=12&month_name=Sep&mday=29&hour=22&lon=-104.67&lat=39.87&airport=IKK&add_hours=3">+3 h</a>
+<br><a href="get_sharp.cgi?in_file=tmp/sharp.IKK.25641.tmp">FAA 604 format for
+SHARP</a> &lt;- <a href="sharp.html">?</a>
+<p></center><pre>            (DD = 'A' means analysis)
+Pressure_Alt DD Dir Spd  ---Temp--- DewPt
+ (ft)   (mb)       (kts)  (F)   (C)   (C)
+
+   656  990.0 A 293   6  77.2  25.1   4.0
+   728  988.0 A 295   7  76.3  24.6   3.8
+   869  983.0 A 298   8  75.4  24.1   3.6
+  1085  976.0 A 299   9  74.3  23.5   3.0
+  1374  966.0 A 303   9  72.7  22.6   3.1
+  1811  951.0 A 305  10  70.5  21.4   2.5
+  2250  936.0 A 308  12  68.0  20.0   2.7
+  2601  925.0 A 309  11  66.2  19.0   2.2
+  2696  922.0 A 309  11  65.7  18.7   2.1
+  3146  907.0 A 313  11  63.3  17.4   2.2
+  3602  892.0 A 313  12  60.8  16.0   1.9
+  4064  877.0 A 321  12  58.3  14.6   2.5
+  4530  863.0 A 327  13  55.8  13.2   2.7
+  4954  850.0 A 332  16  53.4  11.9   2.6
+  5003  848.0 A 333  16  53.2  11.8   2.6
+  5482  833.0 A 340  15  50.7  10.4   2.0
+  5967  819.0 A 345  18  48.2   9.0   1.3
+  6459  804.0 A 348  19  45.7   7.6   1.1
+  6958  789.0 A 348  23  43.3   6.3   0.8
+  7463  775.0 A 350  25  41.2   5.1   0.6
+  7975  760.0 A 349  28  39.7   4.3   0.4
+  8497  745.0 A 350  30  38.7   3.7  -0.1
+  9045  730.0 A 352  30  37.2   2.9  -1.2
+  9927  706.0 A 352  30  34.7   1.5  -4.2
+ 10167  700.0 A 351  30  34.3   1.3  -6.4
+ 10898  680.0 A 349  32  33.3   0.7 -12.9
+ 11870  656.0 A 351  33  31.5  -0.3 -14.5
+ 12706  635.0 A 352  35  30.2  -1.0 -16.2
+ 13484  616.0 A 353  38  29.3  -1.5 -18.6
+ 14251  599.0 A 353  40  28.4  -2.0 -21.1
+ 15091  580.0 A 354  40  27.0  -2.8 -20.8
+ 16604  547.0 A 355  38  22.1  -5.5 -24.9
+ 18884  500.0 A 355  41  12.9 -10.6 -30.7
+ 18891  500.0 A 355  41  12.9 -10.6 -30.7
+ 20574  467.0 A 357  46   6.8 -14.0 -34.0
+ 24356  400.0 A 351  46 -10.3 -23.5 -41.8
+ 25692  378.0 A 349  46 -16.2 -26.8 -44.6
+ 29809  317.0 A   3  42 -34.2 -36.8 -54.7
+ 31046  300.0 A  12  43 -38.7 -39.3 -57.1
+ 32076  286.0 A  19  44 -42.5 -41.4 -59.1
+ 33677  266.0 A  23  43 -47.4 -44.1 -62.0
+ 35075  250.0 A  20  37 -51.5 -46.4 -64.7
+ 35229  248.0 A  20  36 -52.1 -46.7 -65.0
+ 36925  229.0 A   9  30 -57.6 -49.8 -67.9
+ 38973  208.0 A 349  31 -65.0 -53.9 -70.6
+ 41679  183.0 A 325  39 -76.2 -60.1 -71.1
+ 43625  166.0 A 324  53 -83.4 -64.1 -70.8
+ 44294  160.0 A 330  57 -83.7 -64.3 -71.1
+ 44612  158.0 A 334  56 -82.1 -63.4 -71.3
+ 44898  156.0 A 335  52 -79.4 -61.9 -71.1
+ 45367  152.0 A 338  42 -75.6 -59.8 -70.5
+ 45702  150.0 A 337  42 -75.5 -59.7 -70.4
+ 46594  143.0 A 334  41 -74.9 -59.4 -70.0
+ 49917  122.0 A 328  39 -79.6 -62.0 -69.4
+ 53359  102.0 A 324  26 -83.6 -64.2 -83.1
+ 53930  100.0 A 325  26 -84.1 -64.5 -83.4
+ 58005   81.0 A 330  28 -88.4 -66.9 -85.2
+ 61043   70.0 A 328  19 -84.6 -64.8 -83.6
+ 61650   67.0 A 328  17 -83.9 -64.4 -83.3
+ 67372   50.0 A 280  16 ***** -74.1 -90.8
+ 77821   28.0 A 191  15 ***** -91.9 *****
+</pre><center>Sounding for: 
+<a href="http://rucsoundings.noaa.gov/gifs/reply-skewt.cgi?data_source=Op40&year=12&month_name=Sep&mday=29&hour=22&lon=-104.67&lat=39.87&airport=IKK&add_hours=-3">-3 h</a> |
+<a href="http://rucsoundings.noaa.gov/gifs/reply-skewt.cgi?data_source=Op40&year=12&month_name=Sep&mday=29&hour=22&lon=-104.67&lat=39.87&airport=IKK&add_hours=-2">-2 h</a> |
+<a href="http://rucsoundings.noaa.gov/gifs/reply-skewt.cgi?data_source=Op40&year=12&month_name=Sep&mday=29&hour=22&lon=-104.67&lat=39.87&airport=IKK&add_hours=-1">previous hour</a> | 
+<a href="http://rucsoundings.noaa.gov/gifs/reply-skewt.cgi?data_source=Op40&year=12&month_name=Sep&mday=29&hour=22&lon=-104.67&lat=39.87&airport=IKK&add_hours=1">next hour</a> |
+<a href="http://rucsoundings.noaa.gov/gifs/reply-skewt.cgi?data_source=Op40&year=12&month_name=Sep&mday=29&hour=22&lon=-104.67&lat=39.87&airport=IKK&add_hours=2">+2 h</a> |
+<a href="http://rucsoundings.noaa.gov/gifs/reply-skewt.cgi?data_source=Op40&year=12&month_name=Sep&mday=29&hour=22&lon=-104.67&lat=39.87&airport=IKK&add_hours=3">+3 h</a>
+    <p>
+<hr>
+
+<font size="-1">
+<em><strong>Please send questions about this page to one or more of the following people.
+    <ul>
+    <li><a href="mailto:Susan.R.Sahm@noaa.gov">Susan Sahm</a> for
+	technical questions about the java display (such as a blank screen)
+    <li><a href="mailto:Brian.D.Jamison@noaa.gov">Brian Jamison</a>
+	for questions about soundings and the SkewT display in
+	general, and about RAOB soundings
+    <li><a href="mailto:John.M.Brown@noaa.gov">John Brown</a> for
+	questions about model soundings (types of models, available
+	forecasts, latency, etc.)
+</ul>
+</strong>
+</em>
+<br>
+<!-- the tags 'hhmts start' and 'hhmts stop' are used by HTML helper mode
+     to insert the modified date every time this file is saved in emacs -->
+<!-- hhmts start -->
+Last modified: Mon Apr  4 21:13:00 GMT 2011
+<!-- hhmts end -->
+<p></font></body></html>

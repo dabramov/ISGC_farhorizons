@@ -1,0 +1,33 @@
+6/18/2013
+
+Other Interns:
+
+Roxanne
+David
+Jed
+
+http://habhub.org/
+http://habhub.org/predict/
+https://github.com/jonsowman/cusf-standalone-predictor
+http://nearspaceventures.com/w3Baltrak/readyget.pl
+http://www.farhorizonsproject.com/wikipage/index.php?title=Main_Page
+http://gsfcir.gsfc.nasa.gov/balloontech
+http://mag.ncep.noaa.gov/
+http://aprs.fi/
+
+Defaults:
+Callsign: 	WB9SKY-11
+LAT:		41.0975
+LONG:		087.9085 (-87.9085)
+ELEV:		975 ft / 190 m
+ASCENT RATE:	1200 fpm / 6.1 m/s
+DESCENT RATE:	1500 fpm / 7.5 m/s
+BURST ALT:	95000 ft / 29000 m
+Wx STATION:	IKK
+
+See what HabHub uses for data collection from GFS
+
+Other Callsign: KC9LHW-11, KC9LIG-11
+
+6/19/2013
+Github

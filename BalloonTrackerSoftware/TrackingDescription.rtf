@@ -1,0 +1,27 @@
+{\rtf1\ansi\ansicpg1252\cocoartf949\cocoasubrtf540
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+\margl1440\margr1440\vieww9000\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural\pardirnatural
+
+\f0\fs24 \cf0 Tracking Software Description\
+\
+Our current tracking software is a kludgy combination of two pieces of software that aren't really designed to work together from the ground up. They also have a poor interface, extra bells and whistles that we don't need, and are lacking features we would like to see. Finally, it requires a specialized setup and means that only a single person can know where the balloon is at any time.\
+\
+I would like a more flexible setup which will display the information we want and at the same time allow more people access to the data, without specialized setups or programs. For our purposes, this means a web application accessible by a standard browser.\
+\
+Here is the hardware/software setup I envision:\
+\
+APRS packets with position, timestamp, call sign, and simple telemetry arrive over the radio (mixed in with packets from other users of the APRS system). The built-in TNC (terminal node controller) decodes the analog packets and turns them into a digital stream that is sent over the serial port to a small (mac min style?) server. The server is running three pieces of software: 1) a program that monitors the serial port and sends complete packets to a database program; 2) a database program that receives the packets and stores them in a simple database and serves packets upon requests; 3) a html server that serves a web application; and 4) a map server (open streetmaps?)\
+\
+The server is accessed via wireless on laptops in the chase van. The laptops need only run a standard browser pointed at the web app on the server machine. This allows students to bring their own laptops (or smartphone) and get the full experience. The attached image shows the sort of functionality I'd like:\
+\
+A main window that shows the track of the balloon. The projected landing location(s) would be also shown. Before burst that would be a family of projected locations (one for each burst altitude), after burst it would be a single location.\
+The locations of the chase vans would also be shown if they are transmitting GPS information via APRS. The map would be pannable and zoomable in the standard way. A text display of the crucial information (altitude, speed, distance, etc.) should also be available. Telemetry should be displayed versus time, with the option of plotting some values against each other. A "chat window" should also be available, probably only for people within a single van/server. Ideally one would also be able to use this window to send simply text commands up to the balloon \
+(if one had appropriate authorization).\
+\
+Finally, (not shown) would be the ability to display images as they are sent down  from the balloon. This would require a more complicated data stream from the radio to the server and extra programs to handle the stream, but it should be feasible.\
+\
+We have approximately 15 million square kilometers of land area in the United States with a population of about 300 million. This leads to a density of about 20/ sq. km. Alternatively the power requirements for a citizen are about 15 KWhrs/yr\
+so we can expect to need ~5 TWhr. Assuming solar at 10% efficiency with a duty time of 2000 hr/year we have about 200,000 Whrs/yr/m^2 so we need 2.5e7m^2 of solar. that's much less than a 10km by 10km region... So conservatively speaking, we need a 30x30km area. Much of the ecology in this area will be destroyed, but, frankly, if the region is selected correctly (for example the great salt flats), then the impact will be relatively minor.\
+}
